@@ -7,9 +7,11 @@
 
 import Foundation
 
-class NotesListConfigurator {
-    static func createScene() {
-        let viewController = NotesListViewController()
+final class NotesListConfigurator {
+    static let shared = NotesListConfigurator()
+    
+    func configure(_ control: NotesListViewController) {
+        let viewController = control
         let interactor = NotesListInteractor()
         let presenter = NotesListPresenter()
         let router = NotesListRouter()
@@ -24,3 +26,4 @@ class NotesListConfigurator {
         
     }
 }
+

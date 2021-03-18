@@ -9,12 +9,21 @@ import UIKit
 
 enum NotesListModels {
   
-    // MARK: - Something
-    enum Something {
+    enum FetchNotesList {
         struct Request {}
     
-        struct Response {}
+        struct Response {
+            let notes: [Note]
+        }
     
-        struct ViewModel {}
+        struct ViewModel {
+            let notes: [Note]
+        }
+    }
+    
+    enum EditNote {
+        struct Request {
+            let index: Int
+        }
     }
 }

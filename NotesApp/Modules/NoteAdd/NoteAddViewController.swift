@@ -14,56 +14,52 @@ protocol NoteAddDisplayLogic: AnyObject {
 final class NoteAddViewController: UIViewController {
 
     // MARK: - UI Outlets
-  
-  
+    @IBOutlet private weak var titleTextField: UITextField!
+    @IBOutlet private weak var noteTextView: UITextView!
+    
     // MARK: - Public Properties
 
     var interactor: NoteAddBusinessLogic?
     var router: (NoteAddRoutingLogic & NoteAddDataPassing)?
 
     // MARK: - Private Properties
-
+    
     // MARK: - Init
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        NoteAddConfigurator.shared.configure(self)
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-
+    
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        titleTextField.becomeFirstResponder()
+        titleTextField.borderStyle = .none
+        navigationItem.title = "Create new note"
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save note", style: .done, target: self, action: #selector(didTapSaveButton))
     }
 
     // MARK: - Public Methods
 
-
     // MARK: - Requests
-
+    private func requestToSave(note: NewNote) {
+        let request = NoteAddModels.SaveNote.Request(note: note)
+        interactor?.saveNote(request)
+    }
 
     // MARK: - Private Methods
-    private func setup() {
-        let interactor = NoteAddInteractor()
-        let presenter = NoteAddPresenter()
-        let router = NoteAddRouter()
-
-        interactor.presenter = presenter
-        presenter.viewController = self
-        router.viewController = self
-        router.dataStore = interactor
-        
-        self.interactor = interactor
-        self.router = router
-    }
+    
   
     // MARK: - UI Actions
-
+    @objc private func didTapSaveButton() {
+        if let text = titleTextField.text, !text.isEmpty, !noteTextView.text.isEmpty {
+            let note = NewNote(title: text, content: noteTextView.text)
+            requestToSave(note: note)
+            router?.routeBackToNotesList()
+        }
+    }
     
 }
 

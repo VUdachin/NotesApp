@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NotesListPresentationLogic {
-
+    func presentFetchedNotesList(_ response: NotesListModels.FetchNotesList.Response)
 }
 
 final class NotesListPresenter: NotesListPresentationLogic {
@@ -21,5 +21,9 @@ final class NotesListPresenter: NotesListPresentationLogic {
 
     
     // MARK: - Presentation Logic
-
+    func presentFetchedNotesList(_ response: NotesListModels.FetchNotesList.Response) {
+        let viewModel = NotesListModels.FetchNotesList.ViewModel(notes: response.notes)
+        viewController?.displayFetchedNotesList(viewModel)
+        
+    }
 }

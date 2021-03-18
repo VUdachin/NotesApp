@@ -10,11 +10,22 @@ import UIKit
 enum NoteEditorModels {
   
     // MARK: - Something
-    enum Something {
+    enum FetchNote {
         struct Request {}
     
-        struct Response {}
+        struct Response {
+            let note: Note
+        }
     
-        struct ViewModel {}
+        struct ViewModel {
+            let note: Note
+        }
+    }
+    
+    enum SaveChanges {
+        struct Request {
+            let title: String
+            let content: String
+        }
     }
 }

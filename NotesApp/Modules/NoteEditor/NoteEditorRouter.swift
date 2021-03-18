@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NoteEditorRoutingLogic {
-
+    func routeBackToNotesList()
 }
 
 protocol NoteEditorDataPassing {
@@ -18,8 +18,6 @@ protocol NoteEditorDataPassing {
 final class NoteEditorRouter: NoteEditorRoutingLogic, NoteEditorDataPassing {
 
     // MARK: - Public Properties
-
-    weak var parentController: UIViewController?
     weak var viewController: NoteEditorViewController?
     var dataStore: NoteEditorDataStore?
   
@@ -28,10 +26,8 @@ final class NoteEditorRouter: NoteEditorRoutingLogic, NoteEditorDataPassing {
 
     // MARK: - Routing Logic
 
-    
-    // MARK: - Navigation
-  
-
-    // MARK: - Passing data
-
+    func routeBackToNotesList() {
+        viewController?.navigationController?.popViewController(animated: true)
+    }
+     
 }

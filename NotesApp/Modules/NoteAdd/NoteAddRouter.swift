@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NoteAddRoutingLogic {
-
+    func routeBackToNotesList()
 }
 
 protocol NoteAddDataPassing {
@@ -18,8 +18,6 @@ protocol NoteAddDataPassing {
 final class NoteAddRouter: NoteAddRoutingLogic, NoteAddDataPassing {
 
     // MARK: - Public Properties
-
-    weak var parentController: UIViewController?
     weak var viewController: NoteAddViewController?
     var dataStore: NoteAddDataStore?
   
@@ -27,7 +25,9 @@ final class NoteAddRouter: NoteAddRoutingLogic, NoteAddDataPassing {
 
 
     // MARK: - Routing Logic
-
+    func routeBackToNotesList() {
+        viewController?.navigationController?.popViewController(animated: true)
+    }
     
     // MARK: - Navigation
   

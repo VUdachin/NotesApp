@@ -8,44 +8,52 @@
 import UIKit
 
 protocol NoteEditorDisplayLogic: AnyObject {
-
+    func displayFetchedNote(_ viewModel: NoteEditorModels.FetchNote.ViewModel)
 }
 
 final class NoteEditorViewController: UIViewController {
 
     // MARK: - UI Outlets
-  
+    @IBOutlet private weak var titleTextField: UITextField!
+    @IBOutlet private weak var noteTextView: UITextView!
+    
   
     // MARK: - Public Properties
-
     var interactor: NoteEditorBusinessLogic?
     var router: (NoteEditorRoutingLogic & NoteEditorDataPassing)?
 
     // MARK: - Private Properties
-
+    
     // MARK: - Init
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        setup()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        NoteEditorConfigurator.shared.configure(self)
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-
+    
     // MARK: - Lifecycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        configure()
+        titleTextField.becomeFirstResponder()
+        titleTextField.borderStyle = .none
+        navigationItem.title = "Edit note"
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save changes", style: .done, target: self, action: #selector(didTapSaveButton))
+        requestToFetchNote()
     }
 
     // MARK: - Public Methods
 
 
     // MARK: - Requests
-
+    func requestToFetchNote() {
+        let request = NoteEditorModels.FetchNote.Request()
+        interactor?.fetchNote(request)
+    }
+    
+    func requestToSaveChanges(title: String, content: String) {
+        let request = NoteEditorModels.SaveChanges.Request(title: title, content: content)
+        interactor?.saveChanges(request)
+    }
 
     // MARK: - Private Methods
     private func setup() {
@@ -63,12 +71,21 @@ final class NoteEditorViewController: UIViewController {
     }
   
     // MARK: - UI Actions
-
+    @objc private func didTapSaveButton() {
+        if let text = titleTextField.text, !text.isEmpty, !noteTextView.text.isEmpty {
+            requestToSaveChanges(title: text, content: noteTextView.text)
+            router?.routeBackToNotesList()
+        }
+    }
     
 }
 
 // MARK: - Display Logic
 
 extension NoteEditorViewController: NoteEditorDisplayLogic {
-
+    func displayFetchedNote(_ viewModel: NoteEditorModels.FetchNote.ViewModel) {
+        let note = viewModel.note
+        self.titleTextField.text = note.title
+        self.noteTextView.text = note.content
+    }
 }

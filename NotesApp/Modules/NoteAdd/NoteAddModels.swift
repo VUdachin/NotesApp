@@ -8,10 +8,11 @@
 import UIKit
 
 enum NoteAddModels {
-  
-    // MARK: - Something
-    enum Something {
-        struct Request {}
+    
+    enum SaveNote {
+        struct Request {
+            let note: NewNote
+        }
     
         struct Response {}
     
