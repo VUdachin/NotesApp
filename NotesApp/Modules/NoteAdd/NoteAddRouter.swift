@@ -10,6 +10,7 @@ import UIKit
 protocol NoteAddRoutingLogic {
     func routeBackToNotesList()
     func showFillAlert()
+    func alertForPickerController()
 }
 
 protocol NoteAddDataPassing {
@@ -22,8 +23,14 @@ final class NoteAddRouter: NoteAddRoutingLogic, NoteAddDataPassing {
     weak var viewController: NoteAddViewController?
     var dataStore: NoteAddDataStore?
   
-    // MARK: - Private Properties
-
+    // MARK: - Private Methods
+    private func showImagePickerController(sourceType: UIImagePickerController.SourceType) {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = viewController
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = sourceType
+        viewController?.present(imagePicker, animated: true, completion: nil)
+    }
 
     // MARK: - Routing Logic
     func routeBackToNotesList() {
@@ -36,9 +43,20 @@ final class NoteAddRouter: NoteAddRoutingLogic, NoteAddDataPassing {
         alert.addAction(cancel)
         viewController?.present(alert, animated: true, completion: nil)
     }
-    // MARK: - Navigation
-  
+    
+    func alertForPickerController() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
-    // MARK: - Passing data
+        alert.addAction(UIAlertAction(title: "Photo Gallery", style: .default, handler: { (_) in
+            self.showImagePickerController(sourceType: .photoLibrary)
+        }))
 
+        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (_) in
+            self.showImagePickerController(sourceType: .camera)
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+        viewController?.present(alert, animated: true, completion: nil)
+    }
 }
