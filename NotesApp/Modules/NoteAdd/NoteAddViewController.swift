@@ -21,9 +21,8 @@ final class NoteAddViewController: UIViewController {
 
     var interactor: NoteAddBusinessLogic?
     var router: (NoteAddRoutingLogic & NoteAddDataPassing)?
-
     // MARK: - Private Properties
-    
+
     // MARK: - Init
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,7 +30,6 @@ final class NoteAddViewController: UIViewController {
     }
     
     // MARK: - Lifecycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
         titleTextField.becomeFirstResponder()
@@ -40,8 +38,6 @@ final class NoteAddViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save note", style: .done, target: self, action: #selector(didTapSaveButton))
     }
-
-    // MARK: - Public Methods
 
     // MARK: - Requests
     private func requestToSave(note: Note) {

@@ -14,12 +14,6 @@ protocol NoteAddPresentationLogic {
 final class NoteAddPresenter: NoteAddPresentationLogic {
 
     // MARK: - Public Properties
-
     weak var viewController: NoteAddDisplayLogic?
-
-    // MARK: - Private Properties
-
-    
-    // MARK: - Presentation Logic
 
 }

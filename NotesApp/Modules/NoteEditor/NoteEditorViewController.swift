@@ -22,8 +22,6 @@ final class NoteEditorViewController: UIViewController {
     var interactor: NoteEditorBusinessLogic?
     var router: (NoteEditorRoutingLogic & NoteEditorDataPassing)?
 
-    // MARK: - Private Properties
-    
     // MARK: - Init
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,9 +38,6 @@ final class NoteEditorViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save changes", style: .done, target: self, action: #selector(didTapSaveButton))
         requestToFetchNote()
     }
-
-    // MARK: - Public Methods
-
 
     // MARK: - Requests
     func requestToFetchNote() {
@@ -82,7 +77,6 @@ final class NoteEditorViewController: UIViewController {
 }
 
 // MARK: - Display Logic
-
 extension NoteEditorViewController: NoteEditorDisplayLogic {
     func displayFetchedNote(_ viewModel: NoteEditorModels.FetchNote.ViewModel) {
         let note = viewModel.note

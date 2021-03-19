@@ -24,7 +24,6 @@ final class NoteEditorInteractor: NoteEditorBusinessLogic, NoteEditorDataStore {
     lazy var worker: NoteEditorWorkingLogic = NoteEditorWorker()
 
     var note: Note?
-    // MARK: - Private Properties
 
     // MARK: - Business Logic
     func fetchNote(_ request: NoteEditorModels.FetchNote.Request) {

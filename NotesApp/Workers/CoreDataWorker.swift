@@ -25,7 +25,6 @@ class CoreDataWoker {
         return container
     }()
 
-    // MARK: - Core Data Saving support
     func saveContext() {
         if context.hasChanges {
             do {

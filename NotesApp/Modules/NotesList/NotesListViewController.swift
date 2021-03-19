@@ -23,7 +23,7 @@ final class NotesListViewController: UIViewController {
     var router: (NotesListRoutingLogic & NotesListDataPassing)?
 
     // MARK: - Private Properties
-    var notes = [Note]()
+    private var notes = [Note]()
     
     // MARK: - Init
     override func awakeFromNib() {
@@ -40,9 +40,6 @@ final class NotesListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         requestToFetchNotesList()
     }
-
-    // MARK: - Public Methods
-
 
     // MARK: - Requests
     private func requestToFetchNotesList() {
@@ -67,7 +64,6 @@ final class NotesListViewController: UIViewController {
     }
   
     // MARK: - UI Actions
-
     @IBAction func didTapAddButton(_ sender: Any) {
         router?.routeToNoteAdd()
         print("button tapped")
@@ -85,6 +81,7 @@ extension NotesListViewController: NotesListDisplayLogic {
     }
 }
 
+// MARK: - TableViewDataSource
 extension NotesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if notes.count == 0 {
@@ -106,6 +103,7 @@ extension NotesListViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - TableViewDelegate
 extension NotesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         notesTableView.deselectRow(at: indexPath, animated: true)

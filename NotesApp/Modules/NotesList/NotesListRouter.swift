@@ -31,7 +31,7 @@ final class NotesListRouter: NotesListRoutingLogic, NotesListDataPassing {
             let storyboard = viewController.storyboard,
             let noteEditorVC = storyboard.instantiateViewController(withIdentifier: "NoteEditor") as? NoteEditorViewController,
             var noteEditorDS = noteEditorVC.router?.dataStore else {
-            fatalError("Fail route to BreedInfo")
+            fatalError("Fail route to NoteEditor")
         }
         passDataToNoteEditor(destination: &noteEditorDS)
         navigateToNoteEditor(destination: noteEditorVC)
@@ -54,10 +54,8 @@ final class NotesListRouter: NotesListRoutingLogic, NotesListDataPassing {
             let storyboard = viewController.storyboard,
             let noteAddVC = storyboard.instantiateViewController(withIdentifier: "NoteAdd") as? NoteAddViewController,
             var noteAddDS = noteAddVC.router?.dataStore else {
-            print("wrong")
-            return
+            fatalError("Fail route to NoteAdd")
         }
-//        passDataToPetAdding2nd(destination: &petProfileDS)
         navigateToPetProfile(destination: noteAddVC)
     }
 
@@ -65,10 +63,5 @@ final class NotesListRouter: NotesListRoutingLogic, NotesListDataPassing {
     private func navigateToPetProfile(destination: NoteAddViewController) {
         viewController?.navigationController?.pushViewController(destination, animated: true)
     }
-
-    // MARK: - Passing data
-//    private func passDataToPetAdding2nd(destination: inout PetAdding2ndDataStore) {
-//        destination.category = dataStore?.selectedCategory
-//    }
 
 }

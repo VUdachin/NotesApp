@@ -22,8 +22,6 @@ final class NoteAddInteractor: NoteAddBusinessLogic, NoteAddDataStore {
     var presenter: NoteAddPresentationLogic?
     lazy var worker: NoteAddWorkingLogic = NoteAddWorker()
 
-    // MARK: - Private Properties
-
     // MARK: - Business Logic
     func saveNote(_ request: NoteAddModels.SaveNote.Request) {
         worker.saveNoteInLocalDataStore(note: request.note)

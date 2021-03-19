@@ -14,12 +14,8 @@ protocol NoteEditorPresentationLogic {
 final class NoteEditorPresenter: NoteEditorPresentationLogic {
 
     // MARK: - Public Properties
-
     weak var viewController: NoteEditorDisplayLogic?
 
-    // MARK: - Private Properties
-
-    
     // MARK: - Presentation Logic
     func presentFetchedNote(_ response: NoteEditorModels.FetchNote.Response) {
         let viewModel = NoteEditorModels.FetchNote.ViewModel(note: response.note)

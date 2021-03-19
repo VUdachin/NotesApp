@@ -14,11 +14,7 @@ protocol NotesListPresentationLogic {
 final class NotesListPresenter: NotesListPresentationLogic {
 
     // MARK: - Public Properties
-
     weak var viewController: NotesListDisplayLogic?
-
-    // MARK: - Private Properties
-
     
     // MARK: - Presentation Logic
     func presentFetchedNotesList(_ response: NotesListModels.FetchNotesList.Response) {
