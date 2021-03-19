@@ -44,27 +44,29 @@ final class NoteAddViewController: UIViewController {
     // MARK: - Public Methods
 
     // MARK: - Requests
-    private func requestToSave(note: NewNote) {
+    private func requestToSave(note: Note) {
         let request = NoteAddModels.SaveNote.Request(note: note)
         interactor?.saveNote(request)
     }
 
     // MARK: - Private Methods
-    
   
     // MARK: - UI Actions
     @objc private func didTapSaveButton() {
         if let text = titleTextField.text, !text.isEmpty, !noteTextView.text.isEmpty {
-            let note = NewNote(title: text, content: noteTextView.text)
+            let note = CoreDataWoker.shared.createNote()
+            note.title = text
+            note.content = noteTextView.text
             requestToSave(note: note)
             router?.routeBackToNotesList()
+        } else {
+            router?.showFillAlert()
         }
     }
     
 }
 
 // MARK: - Display Logic
-
 extension NoteAddViewController: NoteAddDisplayLogic {
 
 }

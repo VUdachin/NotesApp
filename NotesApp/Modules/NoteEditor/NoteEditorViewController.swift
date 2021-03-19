@@ -75,9 +75,10 @@ final class NoteEditorViewController: UIViewController {
         if let text = titleTextField.text, !text.isEmpty, !noteTextView.text.isEmpty {
             requestToSaveChanges(title: text, content: noteTextView.text)
             router?.routeBackToNotesList()
+        } else {
+            router?.showFillAlert()
         }
     }
-    
 }
 
 // MARK: - Display Logic

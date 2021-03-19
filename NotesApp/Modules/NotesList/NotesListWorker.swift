@@ -9,12 +9,13 @@ import Foundation
 
 protocol NotesListWorkingLogic {
     func fetchNotesFromLocalDataStore(completion: @escaping (Result<[Note], Error>) -> Void)
+    func deleteNoteFromLocalDataStore(note: Note)
 }
 
 final class NotesListWorker: NotesListWorkingLogic {
     // MARK: - Private Properties
     let coreDataWorker = CoreDataWoker.shared
-
+    
     // MARK: - Working Logic
     func fetchNotesFromLocalDataStore(completion: @escaping (Result<[Note], Error>) -> Void) {
         do {
@@ -23,5 +24,9 @@ final class NotesListWorker: NotesListWorkingLogic {
         } catch {
             completion(.failure(error))
         }
+    }
+    
+    func deleteNoteFromLocalDataStore(note: Note) {
+        coreDataWorker.deleteContext(object: note)
     }
 }

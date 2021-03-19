@@ -10,6 +10,7 @@ import Foundation
 protocol NotesListBusinessLogic {
     func fetchNotesList(_ request: NotesListModels.FetchNotesList.Request)
     func editSelectedNote(_ request: NotesListModels.EditNote.Request)
+    func deleteNote(_ request: NotesListModels.DeleteNote.Request)
 }
 
 protocol NotesListDataStore {
@@ -25,6 +26,17 @@ final class NotesListInteractor: NotesListBusinessLogic, NotesListDataStore {
     // MARK: - Private Properties
     var notesList = [Note]()
     var selectedNote: Note?
+    
+    private func updateNotesList() {
+        worker.fetchNotesFromLocalDataStore { (result) in
+            switch result {
+            case .success(let notes):
+                self.notesList = notes
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
     // MARK: - Business Logic
     func fetchNotesList(_ request: NotesListModels.FetchNotesList.Request) {
         worker.fetchNotesFromLocalDataStore { (result) in
@@ -39,10 +51,16 @@ final class NotesListInteractor: NotesListBusinessLogic, NotesListDataStore {
         }
     }
     
+    func deleteNote(_ request: NotesListModels.DeleteNote.Request) {
+        worker.deleteNoteFromLocalDataStore(note: request.note)
+        updateNotesList()
+    }
+    
     func editSelectedNote(_ request: NotesListModels.EditNote.Request) {
+        updateNotesList()
         guard !notesList.isEmpty, request.index < notesList.count else {
-             return
-         }
-         selectedNote = notesList[request.index]
+            return
+        }
+        selectedNote = notesList[request.index]
      }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NoteAddWorkingLogic {
-    func saveNoteInLocalDataStore(note: NewNote)
+    func saveNoteInLocalDataStore(note: Note)
 }
 
 final class NoteAddWorker: NoteAddWorkingLogic {
@@ -17,11 +17,7 @@ final class NoteAddWorker: NoteAddWorkingLogic {
     let coreDataWorker = CoreDataWoker.shared
 
     // MARK: - Working Logic
-    func saveNoteInLocalDataStore(note: NewNote) {
-        let newNote = Note(context: coreDataWorker.context)
-        newNote.title = note.title
-        newNote.content = note.content
-        
+    func saveNoteInLocalDataStore(note: Note) {
         coreDataWorker.saveContext()
     }
 }

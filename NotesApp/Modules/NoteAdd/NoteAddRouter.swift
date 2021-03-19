@@ -9,6 +9,7 @@ import UIKit
 
 protocol NoteAddRoutingLogic {
     func routeBackToNotesList()
+    func showFillAlert()
 }
 
 protocol NoteAddDataPassing {
@@ -29,6 +30,12 @@ final class NoteAddRouter: NoteAddRoutingLogic, NoteAddDataPassing {
         viewController?.navigationController?.popViewController(animated: true)
     }
     
+    func showFillAlert() {
+        let alert = UIAlertController(title: "Whooops", message: "Fill all fields", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        viewController?.present(alert, animated: true, completion: nil)
+    }
     // MARK: - Navigation
   
 

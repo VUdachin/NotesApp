@@ -11,7 +11,7 @@ enum NoteAddModels {
     
     enum SaveNote {
         struct Request {
-            let note: NewNote
+            let note: Note
         }
     
         struct Response {}

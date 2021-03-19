@@ -21,6 +21,12 @@ enum NotesListModels {
         }
     }
     
+    enum DeleteNote {
+        struct Request {
+            let note: Note
+        }
+    }
+    
     enum EditNote {
         struct Request {
             let index: Int

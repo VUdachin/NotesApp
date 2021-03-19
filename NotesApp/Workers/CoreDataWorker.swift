@@ -50,5 +50,18 @@ class CoreDataWoker {
             }
         }
     }
+    
+    func createNote() -> Note {
+        let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: context) as! Note
+        return note
+    }
+    
+    func createFirstStartNote() {
+        let note = createNote()
+        note.title = "Welcome"
+        note.content = "Tap plus and create new note"
+        saveContext()
+        
+    }
 
 }
