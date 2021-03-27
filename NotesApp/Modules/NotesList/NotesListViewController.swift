@@ -64,9 +64,8 @@ final class NotesListViewController: UIViewController {
     }
   
     // MARK: - UI Actions
-    @IBAction func didTapAddButton(_ sender: Any) {
+    @IBAction private func didTapAddButton(_ sender: Any) {
         router?.routeToNoteAdd()
-        print("button tapped")
     }
     
 }
@@ -89,7 +88,6 @@ extension NotesListViewController: UITableViewDataSource {
         } else {
             tableView.restoreState()
         }
-        
         return notes.count
     }
     

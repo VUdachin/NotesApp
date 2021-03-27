@@ -61,20 +61,6 @@ final class NoteEditorViewController: UIViewController {
         navigationItem.rightBarButtonItems = [save, addPic]
     }
     
-    private func setup() {
-        let interactor = NoteEditorInteractor()
-        let presenter = NoteEditorPresenter()
-        let router = NoteEditorRouter()
-
-        interactor.presenter = presenter
-        presenter.viewController = self
-        router.viewController = self
-        router.dataStore = interactor
-        
-        self.interactor = interactor
-        self.router = router
-    }
-    
     @objc private func adjustForKeyboard(notification: Notification) {
         guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
 
